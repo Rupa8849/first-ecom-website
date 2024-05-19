@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,12 +44,11 @@ public class productDetails extends HttpServlet {
 
             if (process.equals("productDetails") || process.equals("cartDetails")) {
                 int id = Integer.parseInt(request.getParameter("id"));
-//                out.println(id);
 
                 ResultSet rs = productDetailsService.getProductDetails(id);
                 if (rs != null) {
 //                    out.println("1");
-                    session.setAttribute("productid", id);
+//                    session.setAttribute("productid", id);
                     request.setAttribute("product", rs);
                     request.setAttribute("process", process);
 
@@ -58,12 +58,8 @@ public class productDetails extends HttpServlet {
                         Double[] prices = (Double[]) session.getAttribute("prices");
                         String[] imageBts = (String[]) session.getAttribute("imageBts");
 
-                        byte[] content = rs.getBytes("image");
-                        String base64Encoded = new String(Base64.encodeBase64(content), "UTF-8");
-//                        String[] imageBts = (String[]) session.getAttribute("imageBts");
-
                         // If the array doesn't exist, create new arrays
-                        if (productNames == null || prices == null) {
+                        if (productNames == null || prices == null || imageBts == null) {
                             productNames = new String[1];
                             prices = new Double[1];
                             imageBts = new String[1];
@@ -72,24 +68,32 @@ public class productDetails extends HttpServlet {
                             // Extend the arrays to accommodate new values
                             String[] newProductNames = new String[productNames.length + 1];
                             Double[] newPrices = new Double[prices.length + 1];
+                            String[] newImageBts = new String[imageBts.length + 1];
+
                             System.arraycopy(productNames, 0, newProductNames, 0, productNames.length);
                             System.arraycopy(prices, 0, newPrices, 0, prices.length);
+                            System.arraycopy(imageBts, 0, newImageBts, 0, imageBts.length);
+
                             productNames = newProductNames;
                             prices = newPrices;
+                            imageBts = newImageBts;
                         }
 
                         // Add the new values to the arrays
                         if (rs.next()) {
                             String pname = rs.getString("product_name");
                             Double price = rs.getDouble("final_price");
+                            byte[] content = rs.getBytes("image");
+                            String base64Encoded = new String(Base64.encodeBase64(content), "UTF-8");
 
-//                            int pid = rs.getInt("product_id");
                             productNames[productNames.length - 1] = pname;
                             prices[prices.length - 1] = price;
+                            imageBts[imageBts.length - 1] = base64Encoded;
+
                             // Store the updated arrays back in the session
                             session.setAttribute("productNames", productNames);
                             session.setAttribute("prices", prices);
-                            session.setAttribute("imageBt", base64Encoded);
+                            session.setAttribute("imageBts", imageBts);
 
                         }
 
@@ -118,9 +122,40 @@ public class productDetails extends HttpServlet {
 
                 RequestDispatcher view = request.getRequestDispatcher("singleProductAjax.jsp");
                 view.forward(request, response);
-            } else if (process.equals("removeCartItems")) {
-                session.removeAttribute("product_names");
+
+            } else if (process.equals("removeOneItem")) {
+                String pid = request.getParameter("pid");
+
+                List<String> productNames = (List<String>) session.getAttribute("productNames");
+                List<Double> prices = (List<Double>) session.getAttribute("prices");
+                List<String> imageBts = (List<String>) session.getAttribute("imageBts");
+
+                // Find the index of the product to remove
+                int indexToRemove = -1;
+                for (int i = 0; i < productNames.size(); i++) {
+                    if (productNames.get(i).equals(pid)) {
+                        indexToRemove = i;
+                        break;
+                    }
+                }
+
+                // Remove the product if found
+                if (indexToRemove != -1) {
+                    productNames.remove(indexToRemove);
+                    prices.remove(indexToRemove);
+                    imageBts.remove(indexToRemove);
+                }
+
+                // Update the session attribute
+                session.setAttribute("productNames", productNames);
+                
+                // Redirect back to the page where you want to display the updated list
+                response.sendRedirect(request.getContextPath() + "/catItems.jsp");
+
+            } else if (process.equals("removeCart")) {
+                session.removeAttribute("productNames");
                 session.removeAttribute("prices");
+                session.removeAttribute("imageBts");
 
             }
         } catch (SQLException | ClassNotFoundException ex) {

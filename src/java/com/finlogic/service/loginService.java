@@ -20,19 +20,9 @@ public class loginService {
         return loginRepository.checkEmail(email);
     }
 
-    public int insertProfileData(
-            String fname,
-            String lname,
-            String username,
-            String email,
-            String mobile,
-            String address,
-            String state,
-            String city,
-            String pincode
-            ) throws SQLException, ClassNotFoundException {
+    public int insertProfileData(String fname,String lname,String email,String mobile) throws SQLException, ClassNotFoundException {
         
-        return loginRepository.insertProfileData(fname, lname, username, email, mobile, address, state, city, pincode);
+        return loginRepository.insertProfileData(fname, lname, email, mobile);
     }
     
     public ResultSet viewUserData(String email) throws SQLException, ClassNotFoundException{

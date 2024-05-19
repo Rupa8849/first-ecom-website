@@ -21,11 +21,12 @@
 <c:if test="${process eq 'verifyOtp'}">
     <%
         ResultSet rs = (ResultSet) request.getAttribute("result");
-        while(rs.next()){
+        while (rs.next()) {
     %>
     <div><%= rs.getString("name")%></div>
     <%
         }
     %>
 </c:if>
-    
+
+

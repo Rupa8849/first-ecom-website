@@ -53,6 +53,10 @@ function data() {
     togglePagesMenu() {
       this.isPagesMenuOpen = !this.isPagesMenuOpen
     },
+    isCategoriesOpen: false,
+    toggleCategories() {
+      this.isCategoriesOpen = !this.isCategoriesOpen
+    },
     // Modal
     isModalOpen: false,
     trapCleanup: null,

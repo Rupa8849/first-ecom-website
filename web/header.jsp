@@ -16,6 +16,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
         <link href="https://icons8.com/icon/W0xu6u7K9A0F/search" />
+        <script src="js/index.js"></script>
         <script>
             tailwind.config = {
                 theme: {
@@ -47,14 +48,13 @@
                             </a>
                             <!-- Nav Links -->
                             <ul class="sm:hidden md:hidden lg:flex font-heading space-x-4">
-                                <li data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"><a
-                                        class="py-1" href="home.jsp">Home</a></li>
+                                <li><a class="py-1" href="home.jsp">Home</a></li>
                                 <li data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"><a
                                         class="py-1" href="#">Categories</a></li>
                                 <li data-dropdown-toggle="brandhover" data-dropdown-trigger="hover">
                                     <a class="py-1" href="#">Brands</a>
                                 </li>
-                                <li><a class="py-1" href="#">Beauty Advice</a></li>
+                                <!--<li><a class="py-1" href="#">Beauty Advice</a></li>-->
                                 <li><a class="py-1" href="aboutus.jsp">About us</a></li>
                                 <li><a class="py-1" href="contactus.jsp">Contact us</a></li>
                             </ul>
@@ -62,6 +62,7 @@
 
                         <!-- Header Icons -->
                         <div class="flex mr-12 space-x-6">
+
                             <!----------------------searchbar------------------------>
 
                             <div class="flex items-center w-80">
@@ -69,65 +70,44 @@
                                     <button type="submit" class="absolute left-0 lg:top-0 sm:top-1 mt-3 lg:ml-4 sm:ml-2">
                                         <img src="images/search-icon.gif" alt="" class="bg-transparent lg:h-4 lg:w-4 sm:h-8 sm:w-8" />
                                     </button>
-                                    <input type="search" name="search" placeholder="Search on PrettyEra"
-                                           class="w-full lg:py-2 pl-10 sm:py-4 sm:text-2xl rounded-lg lg:text-sm focus:outline-none">
+                                    <input type="search" name="search" id="search" placeholder="Search on PrettyEra"
+                                           class="w-full lg:py-2 pl-10 sm:py-4 sm:text-2xl rounded-lg lg:text-sm focus:outline-none"
+                                           list="pnames" onkeyup="return showSuggestion('search')">
+                                    <datalist id="pnames"></datalist>
+                                    <div id="loadSearchItem"></div>
                                 </div>
                             </div>
 
                             <div class="lg:flex space-x-2 sm:hidden items-center">
 
                                 <!-- Sign In / Register  icon    -->
-                                <a class="flex items-center  flex-row space-x-2" href="userLogin.jsp"
-                                   id="profile">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200"
-                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-
-                                    <!--if already registered-->
+                                <a class="flex items-center justify-center space-x-2" href="" id="profile">
                                     <%
-                                        if (session.getAttribute("userExists") != null) {
+                                        if (session.getAttribute("userExists") != null || session.getAttribute("userLoggedin") != null) {
                                             String name = (String) session.getAttribute("name");
                                     %>
+
+                                    <li data-dropdown-toggle="newHover" data-dropdown-trigger="hover" class="flex items-center">
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </a>
+                                    </li>
                                     <p class="hover:text-gray-200"><%= name%></p>
-                                    <i class="fas fa-sign-out-alt text-white text-xl font-medium hover:text-gray-200" onclick="return logout()"></i>
-                                    <%
-                                    } else if (session.getAttribute("userName") != null) {
-                                        String fname = (String) session.getAttribute("fname");
-                                    %>
-                                    <p class="hover:text-gray-200"><%= fname%></p>
-                                    <i class="fas fa-sign-out-alt text-white text-xl font-medium" onclick="return logout()"></i>
+                                    <!--<i class="fas fa-sign-out-alt text-white text-xl font-medium" onclick="return logout()"></i>-->
                                     <%
                                     } else {
                                     %>
-                                    <p>login</p>
+                                    <a href="userLogin.jsp" id="signinBtn"><button class="p-1 bg-black rounded text-md text-bold">Sign in</button></a>
                                     <%
                                         }
                                     %>
-                                    <!--<p id="loadUserName"></p>-->
+
                                 </a>
 
-
-                                <!--                                <a class="hidden text-blue-500 items-center hover:text-gray-200 flex-col"
-                                                                   id="profile2">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200"
-                                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                          d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                                    </svg>
-                                                                </a>-->
-
-
-
-                                <!--wishlist icon-->
-                                <!-- <a class="hover:text-gray-200" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke - linecap="round" stroke - linejoin="round" stroke - width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </a> -->
 
                                 <!--shopping bag icon-->
                                 <a class="lg:flex items-center hover:text-gray-200" href="cartItems.jsp">
@@ -138,8 +118,9 @@
 
                                     <span class="flex absolute -mt-4 ml-4">
                                         <%
-                                            if (request.getParameter("productCount") != null) {
-                                                String count = (String) request.getParameter("productCount");
+                                            if (session.getAttribute("userExists") != null || session.getAttribute("userLoggedin") != null) {
+                                                if (session.getAttribute("total_quantity") != null) {
+                                                    int count = (int) session.getAttribute("total_quantity");
                                         %>
                                         <span id="productCount" class="bg-red-500 text-white rounded-full text-xs w-4 h-4 flex
                                               items-center justify-center absolute -top-2 -right-3 border"><%= count%></span>
@@ -150,7 +131,12 @@
                                               items-center justify-center absolute -top-2 -right-3 border">0</span>
                                         <%
                                             }
+                                        } else {
+
                                         %>
+                                        <span id="productCount" class="bg-red-500 text-white rounded-full text-xs w-4 h-4 flex
+                                              items-center justify-center absolute -top-2 -right-3 border">0</span>
+                                        <%}%>
                                     </span>
                                 </a>
                             </div>
@@ -158,24 +144,64 @@
                     </div>
 
                     <!-- Responsive navbar -->
-                    <a class="lg:hidden  flex mr-6 items-center justify-center space-x-6" href="cartItems.jsp">
-                        <div><svg viewBox="0 0 72 72" class="h-6 w-6 font-bold" xmlns="http://www.w3.org/2000/svg"><g style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:6"><path d="m36.0015 60.9598h-25l5-39.9583h2.5697"/><path d="m25.7466 21.0015h10.2548"/><path d="m36.0015 60.9598h25l-5-39.9583h-2.5697"/><path d="m46.2563 21.0015h-10.2547"/><path d="m22.049 27.662v-6.6199c0-7.7544 6.2862-14.0406 14.0406-14.0406s14.0406 6.2862 14.0406 14.0406v6.6199"/></g></svg>    
-                            <span class="flex absolute -mt-4 ml-4">
-                                <span id="productCount" class="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center absolute -top-2 -right-4">0</span>
-                            </span>
-                        </div>
-                        <i class="fas fa-sign-out-alt text-white text-xl font-medium hover:text-gray-200" onclick="return logout()"></i>
+                    <div class="lg:hidden flex items-center justify-between">
+                        <!--<li data-dropdown-toggle="newHover" data-dropdown-trigger="hover" class="flex items-center">-->
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200"
+                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </a>
+                        <a class="flex mr-6 items-center justify-center space-x-6" href="cartItems.jsp">
+                            <div><svg viewBox="0 0 72 72" class="h-6 w-6 font-bold" xmlns="http://www.w3.org/2000/svg"><g style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:6"><path d="m36.0015 60.9598h-25l5-39.9583h2.5697"/><path d="m25.7466 21.0015h10.2548"/><path d="m36.0015 60.9598h25l-5-39.9583h-2.5697"/><path d="m46.2563 21.0015h-10.2547"/><path d="m22.049 27.662v-6.6199c0-7.7544 6.2862-14.0406 14.0406-14.0406s14.0406 6.2862 14.0406 14.0406v6.6199"/></g></svg>    
+                                <span class="flex absolute -mt-4 ml-4">
+                                    <span id="productCount" class="bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center absolute -top-2 -right-4">0</span>
+                                </span>
+                            </div>
+                            <i class="fas fa-sign-out-alt text-white text-xl font-medium hover:text-gray-200" onclick="return logout()"></i>
 
-                    </a>
+                        </a>
 
-                    <a class="navbar-burger self-center mr-12 lg:hidden" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke - linecap="round" stroke - linejoin="round" stroke - width="2"
-                              d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </a>
+                        <a class="navbar-burger self-center mr-12" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke - linecap="round" stroke - linejoin="round" stroke - width="2"
+                                  d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </a>
+                    </div>
                 </nav>
+                <!--=============================================menus on profile-icon hover=======================================-->
+                <div id="newHover"
+                     class="z-10 hidden bg-white shadow w-fit dark:bg-gray-700 flex ">
+                    <ul class="text-sm text-gray-500 dark:text-gray-200 bg-white">
+                        <li class="hover:bg-gray-50">
+                            <a href="userDetail.jsp?param=userProfile" class="flex items-center justify-start space-x-2 py-2 border pr-16">
+                                <i class="fa-solid fa-user pl-2"></i>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                        <li class="hover:bg-gray-50">
+                            <a href="userDetail.jsp?param=myOrders" class="flex items-center justify-start space-x-2 py-2 border pr-16">
+                                <img src="images/order3.png" class="pl-2 h-4 w-6">
+                                <p>Orders</p>
+                            </a>
+                        </li>
+                        <li class="hover:bg-gray-50">
+                            <a href="userDetail.jsp?param=myOrders" class="flex items-center justify-start space-x-2 py-2 border pr-16">
+                                <img src="images/love.png" class="pl-2 h-5 w-6">
+                                <p>Wishlist</p>
+                            </a>
+                        </li>
+                        <li onclick="return logout()" class="hover:bg-gray-50">
+                            <a href="#" class="flex items-center justify-start space-x-2 py-2 border pr-16">
+                                <i class="fa-solid fa-power-off pl-2"></i>
+                                <p>Logout</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>                                
 
                 <!--=============================================menus on categories hover=======================================-->
                 <div id="dropdownHover"
@@ -185,14 +211,14 @@
                         <div>
                             <li class="font-bold text-center">Lip</li>
                         </div>
-                        <a href="lipstic-lipcare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2001"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">lipstick
                             & liners
                         </a>
-                        <a href="lipstic-lipcare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2006"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">lipbalm
                         </a>
-                        <a href="lipstic-lipcare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2005"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">gloss
                         </a>
                     </ul>
@@ -200,17 +226,17 @@
                         <div>
                             <li class="font-bold text-center">Eyes</li>
                         </div>
-                        <a href="kajal-liners-mascara.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2002"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eyeliners
                         </a>
-                        <a href="kajal-liners-mascara.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2003"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Kajal
                             & kohl
                         </a>
-                        <a href="kajal-liners-mascara.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2010"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mascara
                         </a>
-                        <a href="kajal-liners-mascara.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2011"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eye
                             shadow
                         </a>
@@ -222,22 +248,22 @@
                         <div>
                             <li class="font-bold text-center">Face</li>
                         </div>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2004"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Foundation
                         </a>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2008"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Primer
                         </a>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2012"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Blush
                         </a>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2013"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Highlighter
                         </a>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2007"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Conceler
                         </a>
-                        <a href="face-foundation-compact.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2009"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Compact
                         </a>
                     </ul>
@@ -246,11 +272,11 @@
                         <div>
                             <li class="font-bold text-center">Nails</li>
                         </div>
-                        <a href="nailpaints-remover.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2014"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Nail
                             colors
                         </a>
-                        <a href="nailpaints-remover.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2015"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Polish
                             remover
                         </a>
@@ -260,59 +286,26 @@
                         <div>
                             <li class="font-bold text-center">Skincare</li>
                         </div>
-                        <a href="skincare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2016"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Moisturizers
                         </a>
-                        <a href="skincare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2017"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Serums
                         </a>
-                        <a href="skincare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2018"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sun
                             protection
                         </a>
-                        <a href="skincare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2020"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Face
                             cleanness
                         </a>
-                        <a href="skincare.jsp"
+                        <a href="displaySingleCategory.jsp?cid=2019"
                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Makeup
                             remover
                         </a>
-                        <a href="skincare.jsp"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Masks
-                            & facial kits
-                        </a>
-                    </ul>
-                    <ul class="text-sm text-gray-700 dark:text-gray-200 bg-white"
-                        aria-labelledby="dropdownHoverButton">
-                        <div>
-                            <li class="font-bold text-center">Shop by concern</li>
-                        </div>
-                        <a href="products/lipstick2.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Glowing
-                            Skin
-                        </a>
-                        <a href="products/nayka_lipbalm.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Hydration
-                        </a>
-                        <a href="products/nayka_gloss.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Anti-Ageing
-                        </a>
-                        <a href="products/nayka_gloss.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dryness
-                            control
-                        </a>
-                        <a href="products/nayka_gloss.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Oil
-                            control
-                        </a>
-                        <a href="products/nayka_gloss.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Eye
-                            care
-                        </a>
-                        <a href="products/nayka_gloss.html"
-                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lip
-                            care
+                        <a href="displaySingleCategory.jsp?cid=2021"
+                           class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Face Masks
                         </a>
                     </ul>
                 </div>
@@ -383,7 +376,7 @@
                                 <img src="images/brands/1549261786_sugar.webp">
                             </div>
                         </a>
-                        <a href="brandProducts.jsp?brand=loreal"
+                        <a href="brandProducts.jsp?brand=loreal paris"
                            class="block px-8 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                             <div>
                                 <img src="images/brands/lorealparis.avif">

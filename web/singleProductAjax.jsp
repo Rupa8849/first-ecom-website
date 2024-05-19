@@ -42,9 +42,9 @@
                 String base64Encoded = new String(Base64.encodeBase64(content), "UTF-8");
                 request.setAttribute("imageBt", base64Encoded);
         %>
-        <div class="flex justify-center bg-gray-100">
-            <div class="lg:w-[80%] h-screen lg:p-10 sm:p-5">
-                <div class="w-fit h-[90%] grid lg:grid-cols-2 sm:grid-cols-1 sm:w-full border">
+        <div class="flex justify-center items-center bg-gray-100">
+            <div class="lg:w-[70%] h-screen lg:p-10 sm:p-5">
+                <div class="w-fit h-fit grid lg:grid-cols-2 sm:grid-cols-1 sm:w-full border">
 
                     <div class="h-full bg-white flex justify-center rounded">
                         <div class="w-[80%] h-full flex justify-center items-center">
@@ -64,7 +64,7 @@
                             <div class="p-6 flex flex-col">
                                 <div class="flex space-x-4">
                                     <p class="font-medium lg:text-xl uppercase sm:text-4xl">MRP : ₹<span class="line-through"><%=rs.getDouble("price")%></span></p>
-                                    <p class="font-medium lg:text-xl uppercase sm:text-4xl">₹<span><%=rs.getDouble("final_price")%></span></p>
+                                    <p class="font-medium lg:text-xl uppercase sm:text-4xl">₹<span id="totalpriceSpan"><%=rs.getDouble("final_price")%></span></p>
                                 </div>
                                 <p class="lg:text-xl pt-2 sm:text-3xl"><span><%=rs.getInt("discount_in_pct")%></span>% Off</p>
                             </div>
@@ -74,7 +74,7 @@
                                     if (session.getAttribute("userExists") != null || session.getAttribute("userLoggedin") != null) {
                                 %>
                                 <button class="bg-black text-white lg:text-xl sm:text-3xl font-medium lg:py-4 sm:p-6 lg:w-[45%] sm:w-1/2  hover:bg-white hover:text-black
-                                        hover:outline hover:outline-bronze duration-500" onclick="return addToCart(<%= session.getAttribute("productid")%>)">Add to bag</button>
+                                        hover:outline hover:outline-bronze duration-500" onclick="return addToCart(this,<%= rs.getInt("product_id")%>,<%= session.getAttribute("userid")%>)">Add to bag</button>
                                 <%
                                 } else {
                                 %>
@@ -85,7 +85,7 @@
                                     }
                                 %>
                                 <button class="bg-black text-white lg:text-xl sm:text-3xl font-medium lg:py-4 sm:p-6 lg:w-[45%] sm:w-1/2 hover:bg-white hover:text-black
-                                        hover:outline hover:outline-bronze duration-500" onclick="return buyNow()">Buy now</button>
+                                        hover:outline hover:outline-bronze duration-500" onclick="return buyNow(<%= session.getAttribute("userid")%>)">Buy now</button>
                             </div>
                             <!--discription-->
                             <div class="p-6 h-fit">
@@ -99,7 +99,7 @@
             </div>
         </div>
         <%}%>
-
+        <div id="loadCartUpdateResponse"></div>
         <!--========================================= footer section starts=============================================-->
         <section class="w-screen h-fit">
             <%@include  file="footer.jsp"%>
@@ -121,21 +121,23 @@
         %>
         <div class="max-w-[1320px] lg:w-[75%] h-fit mx-auto text-center mt-10 p-10 text-5xl bg-white">
             <p class="text-3xl mb-4">Buy <span><%= session.getAttribute("brand")%> </span> Products Online</p>
-            <div class="border bg-green-200 flex flex-col justify-center space-y-10">
+            <div class="border flex flex-col justify-center space-y-10 h-fit">
                 <div class="bg-gray-100">
                     <video poster="https://images-static.nykaa.com/uploads/37bd95bf-33bb-452e-a1dc-6bbba00c4e6d.png?tr=w-600,cm-pad_resize" loop="" autoplay="" muted="" playsinline="">
                         <source src="https://vtsmedia.nykaa.com/display_network_prod_blue/df45cc07-ced3-43b5-a497-71642c8a5f6a/2pass-abr-vbv/preset1/a6f5a8c24617-794a-5b34-3dec-70cc54fd.mp4" 
                                 type="video/mp4"><img alt="Lakme" src="https://images-static.nykaa.com/uploads/37bd95bf-33bb-452e-a1dc-6bbba00c4e6d.png?tr=w-600,cm-pad_resize" loading="eager">
                     </video>
                 </div>
-                <!--                <div class="bg-gray-200 flex justify-evenly">
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                
-                                </div>-->
+                <div class="bg-gray-100 flex justify-evenly h-fit">
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/eyes-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/liner-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/lip-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/nail-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/foundation-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/mascara-add.avif" class="h-32 w-32"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/lakme/primer-add.avif" class="h-32 w-32"></div>
+
+                </div>
             </div>
         </div>
         <%
@@ -150,7 +152,7 @@
         %>
         <div class="max-w-[1320px] lg:w-[75%] h-fit mx-auto text-center mt-10 p-10 text-5xl bg-white">
             <p class="text-3xl mb-4">Buy <span><%= session.getAttribute("brand")%> </span> Products Online</p>
-            <div class="border bg-green-200 flex flex-col justify-center space-y-10">
+            <div class="border flex flex-col justify-center space-y-10">
                 <div class="bg-gray-100">
                     <video poster="https://images-static.nykaa.com/uploads/348b1f95-ad4e-4736-af5a-5e41916d5fc5.jpg?tr=w-600,cm-pad_resize" 
                            loop="" autoplay="" muted="" playsinline="">
@@ -158,14 +160,13 @@
                                 type="video/mp4"><img alt="kay-beauty-video" src="./Shop For Genuine Kay Beauty Products At Best Price Online_files/348b1f95-ad4e-4736-af5a-5e41916d5fc5.jpg" loading="eager">
                     </video>
                 </div>
-                <!--                <div class="bg-gray-200 flex justify-evenly">
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                                    <div class="bg-red-500 h-20 w-32">hello</div>
-                
-                                </div>-->
+                 <div class="bg-gray-100 flex justify-start space-x-10 h-fit">
+                     <div class="bg-red-500 h-fit w-fit"><img src="images/kay/lips-add.avif" class="h-32 w-40"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/kay/eyes-add.avif" class="h-32 w-40"></div>
+                    <div class="bg-red-500 h-fit w-fit"><img src="images/kay/face-add.avif" class="h-32 w-40"></div>
+                    
+
+                </div>
             </div>
         </div>
         <%
@@ -176,7 +177,7 @@
         <!--for loreal paris-->
         <%
             if (session.getAttribute("brand") != null) {
-                if (session.getAttribute("brand").equals("loreal")) {
+                if (session.getAttribute("brand").equals("loreal paris")) {
         %>
         <div class="max-w-[1320px] lg:w-[75%] h-fit mx-auto text-center mt-10 p-10 text-5xl bg-white">
             <p class="text-3xl mb-4">Buy <span><%= session.getAttribute("brand")%> </span> Products Online</p>
@@ -236,114 +237,114 @@
         <div class="py-8 pt-10 flex justify-between max-w-[1320px] lg:w-[75%] mx-auto lg:space-x-10 sm:space-x-6 ">
 
             <!--filter--> 
-            <div class="p-1 w-[35%] h-screen">
-                <div>
-                    <div class="bg-gray-200 w-full flex justify-between p-2"  id="shortByDiv" onclick='showFilterOptions("angle-down", "filter-categories")'>
-                        <p class="text-pink-500 ">Short By : <span id="filter-choice"></span></p>
-                        <span><i class="fa-solid fa-angle-down" id="angle-down"></i></span>
-                    </div>
-                    <div id="filter-categories" class="hidden bg-gray-100 w-full flex-col p-2 mt-1">
-                        <div class="flex justify-between p-2">
-                            <p>Popularity</p>
-                            <input type="radio" value="Popularity" id="rbPopularity" name="rb" class="w-4 h-4" onchange="applyFilter()">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>New Arrivals</p>
-                            <input type="radio" value="New Arrivals" id="rbNew" name="rb" class="w-4 h-4" onchange="applyFilter()">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>Price : High to low</p>
-                            <input type="radio" value="Price : High to low" id="rbHightolow" name="rb" class="w-4 h-4" onchange="applyFilter()">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>Price : Low to high</p>
-                            <input type="radio" value="Price : Low to high" id="rbLowtohigh" name="rb" class="w-4 h-4" onchange="applyFilter()">
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3">
-                    <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down1", "filter-categories1")'>
-                        <p>Price : </p>
-                        <span><i class="fa-solid fa-angle-down" id="angle-down1"></i></span>
-                    </div>
-                    <div id="filter-categories1" class="hidden bg-white w-full flex-col px-2 mt-1">
-                        <div class="flex justify-between p-2">
-                            <p>₹0 - ₹499</p>
-                            <input type="checkbox" value="" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>₹499 - ₹999</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>₹999 - ₹1999</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>₹1999 - ₹3999</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="mt-1">
-                    <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down2", "filter-categories2")'>
-                        <p>Discount : </p>
-                        <span><i class="fa-solid fa-angle-down" id="angle-down2"></i></span>
-                    </div>
-                    <div id="filter-categories2" class="hidden bg-white w-full flex-col px-2 mt-1">
-                        <div class="flex justify-between p-2">
-                            <p>50% and Above</p>
-                            <input type="checkbox" value="" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>40% to 50%</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>30% to 40%</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>20% to 30%</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>10% to 20%</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>below 10%</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="mt-1">
-                    <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down3", "filter-categories3")'>
-                        <p>Category : </p>
-                        <span><i class="fa-solid fa-angle-down" id="angle-down3"></i></span>
-                    </div>
-                    <div id="filter-categories3" class="hidden bg-white w-full flex-col px-2 mt-1">
-                        <div class="flex justify-between p-2">
-                            <p>Skin</p>
-                            <input type="checkbox" value="" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>Bath & Body</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>Hair</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                        <div class="flex justify-between p-2">
-                            <p>Makeup</p>
-                            <input type="checkbox" class="w-4 h-4">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="p-1 w-[35%] h-screen">
+                            <div>
+                                <div class="bg-gray-200 w-full flex justify-between p-2"  id="shortByDiv" onclick='showFilterOptions("angle-down", "filter-categories")'>
+                                    <p class="text-pink-500 ">Short By : <span id="filter-choice"></span></p>
+                                    <span><i class="fa-solid fa-angle-down" id="angle-down"></i></span>
+                                </div>
+                                <div id="filter-categories" class="hidden bg-gray-100 w-full flex-col p-2 mt-1">
+                                    <div class="flex justify-between p-2">
+                                        <p>Popularity</p>
+                                        <input type="radio" value="Popularity" id="rbPopularity" name="rb" class="w-4 h-4" onchange="applyFilter()">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>New Arrivals</p>
+                                        <input type="radio" value="New Arrivals" id="rbNew" name="rb" class="w-4 h-4" onchange="applyFilter()">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>Price : High to low</p>
+                                        <input type="radio" value="Price : High to low" id="rbHightolow" name="rb" class="w-4 h-4" onchange="applyFilter()">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>Price : Low to high</p>
+                                        <input type="radio" value="Price : Low to high" id="rbLowtohigh" name="rb" class="w-4 h-4" onchange="applyFilter()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down1", "filter-categories1")'>
+                                    <p>Price : </p>
+                                    <span><i class="fa-solid fa-angle-down" id="angle-down1"></i></span>
+                                </div>
+                                <div id="filter-categories1" class="hidden bg-white w-full flex-col px-2 mt-1">
+                                    <div class="flex justify-between p-2">
+                                        <p>₹0 - ₹499</p>
+                                        <input type="checkbox" value="" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>₹499 - ₹999</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>₹999 - ₹1999</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>₹1999 - ₹3999</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down2", "filter-categories2")'>
+                                    <p>Discount : </p>
+                                    <span><i class="fa-solid fa-angle-down" id="angle-down2"></i></span>
+                                </div>
+                                <div id="filter-categories2" class="hidden bg-white w-full flex-col px-2 mt-1">
+                                    <div class="flex justify-between p-2">
+                                        <p>50% and Above</p>
+                                        <input type="checkbox" value="" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>40% to 50%</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>30% to 40%</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>20% to 30%</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>10% to 20%</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>below 10%</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+            
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                <div class="bg-gray-200 w-full flex justify-between p-2" onclick='showFilterOptions("angle-down3", "filter-categories3")'>
+                                    <p>Category : </p>
+                                    <span><i class="fa-solid fa-angle-down" id="angle-down3"></i></span>
+                                </div>
+                                <div id="filter-categories3" class="hidden bg-white w-full flex-col px-2 mt-1">
+                                    <div class="flex justify-between p-2">
+                                        <p>Skin</p>
+                                        <input type="checkbox" value="" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>Bath & Body</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>Hair</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                    <div class="flex justify-between p-2">
+                                        <p>Makeup</p>
+                                        <input type="checkbox" class="w-4 h-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
 
             <!--products--> 
             <div class="max-w-[1320px] mx-auto grid lg:grid-cols-3 md:grid-cols-2 gap-6">
@@ -375,9 +376,9 @@
                             </div>
                             <div class="w-full flex-col">
                                 <%
-                                    if (session.getAttribute("userExists") != null || session.getAttribute("userName") != null) {
+                                    if (session.getAttribute("userExists") != null || session.getAttribute("userLoggedin") != null) {
                                 %>
-                                <button onclick="return addToCart()" class="w-full flex items-center justify-center bg-black px-5 py-2.5 text-center text-lg font-semi-bold
+                                <button onclick="return addToCart(<%= brand.getInt("product_id")%>,<%= session.getAttribute("userid")%>)" class="w-full flex items-center justify-center bg-black px-5 py-2.5 text-center text-lg font-semi-bold
                                         text-white hover:bg-white hover:text-black hover:border hover:border-black duration-300">
                                     Add to cart</button>
                                     <%

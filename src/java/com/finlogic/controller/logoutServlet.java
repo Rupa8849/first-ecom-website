@@ -33,12 +33,15 @@ public class logoutServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession(false);
-            
-            session.setAttribute("userName", null);
+
+            session.setAttribute("userLoggedin", null);
             session.setAttribute("emailSession", null);
             session.setAttribute("userExists", null);
-            session.setAttribute("user_id", null);
-             
+            session.setAttribute("userid", null);
+            session.setAttribute("fname", null);
+            session.setAttribute("name", null);
+            session.setAttribute("total_Quantity", null);
+
 //           response.sendRedirect("home.jsp");
         }
     }

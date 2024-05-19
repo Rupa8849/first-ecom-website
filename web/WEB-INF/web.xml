@@ -43,6 +43,40 @@
     <servlet>
         <servlet-name>contactDetailServlet</servlet-name>
         <servlet-class>com.finlogic.controller.contactDetailServlet</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>10485760</max-file-size>
+            <max-request-size>20971520</max-request-size>
+            <max-request-size-threshold>0</max-request-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>cartServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.cartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>orderServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.orderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>categoryServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.categoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>userEventServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.userEventServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>insertProductServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.insertProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateProductServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.updateProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>homeServlet</servlet-name>
+        <servlet-class>com.finlogic.controller.homeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ImageServlet</servlet-name>
@@ -87,6 +121,34 @@
     <servlet-mapping>
         <servlet-name>contactDetailServlet</servlet-name>
         <url-pattern>/contactDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cartServlet</servlet-name>
+        <url-pattern>/cartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>orderServlet</servlet-name>
+        <url-pattern>/orderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>categoryServlet</servlet-name>
+        <url-pattern>/categoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>userEventServlet</servlet-name>
+        <url-pattern>/userEventServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>insertProductServlet</servlet-name>
+        <url-pattern>/insertProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateProductServlet</servlet-name>
+        <url-pattern>/updateProductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homeServlet</servlet-name>
+        <url-pattern>/homeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

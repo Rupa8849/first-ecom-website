@@ -34,7 +34,11 @@ public class contactDetailRepository {
         stmt.setString(3, email);
         stmt.setString(4, subject);
         stmt.setString(5, message);
-        stmt.setDate(6, new java.sql.Date(msgDate.getTime()));
+        
+        Date currentDate = new Date();
+        Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
+        
+        stmt.setTimestamp(6,currentTimestamp);
 
         return stmt.executeUpdate();
 

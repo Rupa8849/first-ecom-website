@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>About us page</title>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="../js/index.js"></script>
+        <script src="js/index.js"></script>
         <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
         <link href="https://tuk.dev/components/E-commerce/Components/carousels/carousel_2"/>
@@ -100,74 +100,5 @@
         </div>
 
 
-
-
-
-        <!--        <div class="max-w-[1320px] md:py-[80] py-5 flex mx-auto bg-gray-600 text-white">
-        
-                    <br>
-                    <div class="basis-[35%] pl-[2%] grid grid-cols-2 gap-2">
-                        <img src="images/bgimage1.avif" class="w-full">
-                        <img src="images/bgimage9.avif" class="w-full">
-                        <img src="images/bgimage3.avif" class="w-full">
-                        <img src="images/bgimage4.avif" class="w-full">
-                    </div>
-                    <div class="basis-[55%] px-5">
-                        <h1>The At first glance, PreetyEra website is simple, aesthetically pleasing, and easy to navigate.
-                            Large images showcase the product on its own and on a model, while pink colors perfectly match the brand.
-                            A clean, natural look is a perfect match for this industry.With PreetyEra, navigation is not reduced to the main menu.
-                            Holding your cursor over a category brings up the top options within that category, previewing exactly what the user is looking for.
-                            Bundling products makes for a more straightforward online shopping experience.
-                            In short, simplicity is key.
-                            The fact that the branding is consistent and strong throughout only helps to make this a site that fully leans into its brand and maximizes its potential..</h1>
-        
-                    </div>
-        
-                </div>
-                <div class="max-w-[1320px] md:py-[80] p-20 flex mx-auto bg-gray-600 text-white">
-        
-                    <br>
-                    <div class="basis-[70%] ">
-                        <h1>Talk about a top beauty site that shines through aesthetics.
-                            The appearance is as the brand name suggests: bright colors, but without being too flashy, catch the eye without being annoying.
-                            Meanwhile, menus with background pictures of the actual products add a fun touch to the navigation without compromising readability.
-                            The shopping experience is still front and center here. An under $25 section appeals to budget shoppers, while a chat feature helps with anything from making a decision to potential check-out issues.
-                            Once you get to the product pages, you find in-depth videos and information on how to apply the product, keeping the focus on education. But 100% Pure is not afraid to lean into its brand, either; a philanthropy site helps to communicate that when you shop here, you help to make a difference</h1>
-        
-                    </div>
-                    <div class="basis-[35%] pr-1 grid grid-cols-2 gap-2">
-                        <img src="images/bgimage6.avif" class="w-full">
-                        <img src="images/bgimage5.avif" class="w-full">
-                        <img src="images/bgimage7.avif" class="w-full">
-                        <img src="images/bgimage8.avif" class="w-full">
-                    </div>
-        
-        
-                </div>
-        
-            </div>
-            <div class="max-w-[1320px] p-[15%]] bg-gray-600 grid lg:grid-cols-3 mx-auto gap-5">
-                <div class="p-10 ml-20 h[30%] bg-black w-[70%]">
-                    <img src="images/rupa2.jpeg " class="rounded-full h-40">
-                    <p class="text-white">hello my name rupa chauhan</p>
-                    <p class="text-white">bca student</p>
-                    <p class="text-white">pretty era website</p>
-        
-                </div>
-                <div class="p-10 ml-20 h[30%] bg-black w-[70%]">
-                    <img src="images/sakshi1.jpeg " class="rounded-full h-40">
-                    <p class="text-white">hello my name rupa chauhan</p>
-                    <p class="text-white">bca student</p>
-                    <p class="text-white">pretty era website</p>
-        
-                </div>
-                <div class="p-10 ml-20 h[30%] bg-black w-[70%]">
-                    <img src="images/muskan2.jpeg " class="rounded-full h-40">
-                    <p class="text-white">hello my name rupa chauhan</p>
-                    <p class="text-white">bca student</p>
-                    <p class="text-white">pretty era website</p>
-        
-                </div>
-            </div>-->
     </body>
 </html>

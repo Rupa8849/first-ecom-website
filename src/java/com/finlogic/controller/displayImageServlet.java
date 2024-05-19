@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,6 +38,7 @@ public class displayImageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             String process = request.getParameter("process");
+            HttpSession session = request.getSession();
 
             if (process.equals("displayLipstics")
                     || process.equals("displayEyemakeup")
@@ -70,48 +72,8 @@ public class displayImageServlet extends HttpServlet {
                 request.setAttribute("process", process);
 
                 RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-                view.forward(request, response);    
-//                request.setAttribute("process", process);
-//
-//                RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-//                view.forward(request, response);
-
-//            } else if (process.equals("displayEyemakeup")) {
-//                ResultSet rs = displayImageService.displayEyemakeups();
-//
-//                request.setAttribute("result", rs);
-//                request.setAttribute("process", process);
-//
-//                RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-//                view.forward(request, response);
-//
-//            } else if (process.equals("displayFacemakeup")) {
-//                ResultSet rs = displayImageService.displayFacemakeups();
-//
-//                request.setAttribute("result", rs);
-//                request.setAttribute("process", process);
-//
-//                RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-//                view.forward(request, response);
-//
-//            } else if (process.equals("displayNailmakeup")) {
-//                ResultSet rs = displayImageService.displayNailmakeups();
-//
-//                request.setAttribute("result", rs);
-//                request.setAttribute("process", process);
-//
-//                RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-//                view.forward(request, response);
-//
-//            } else if (process.equals("displaySkincare")) {
-//                ResultSet rs = displayImageService.displaySkincare();
-//
-//                request.setAttribute("result", rs);
-//                request.setAttribute("process", process);
-//
-//                RequestDispatcher view = request.getRequestDispatcher("productsAjax.jsp");
-//                view.forward(request, response);
-//
+                view.forward(request, response);
+//                
             }
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Exception : " + ex.getMessage());

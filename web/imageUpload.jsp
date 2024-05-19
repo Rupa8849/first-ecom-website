@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Upload image</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="js/index.js"></script>
         <script>
             tailwind.config = {
                 theme: {
@@ -25,7 +26,7 @@
         </script>
     </head>
     <body>
-        <form action="uploadServlet" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="bg-black p-4 text-white w-3/5 mx-auto mt-8">
                 <div class="p-8 gap-x-2 gap-y-4 grid grid-cols-2">
                     <div>product id : <input type="text" name="pid" placeholder="enter product id" class="py-1 text-gray-800"></div>
@@ -40,7 +41,7 @@
                     <div>shade_id : <input type="text" name="sid" placeholder="enter shade id" class="py-1 text-gray-800"></div>
                     <!--<div>final price : <input type="text" name="final_price" placeholder="final price" class="py-1 text-gray-800"></div>-->
                 </div>
-                <div class="flex justify-center"><input type="submit" value="upload" class="bg-bronze p-2 px-6"></div>
+                <div class="flex justify-center" onclick="return validateFileInput('image')"><input type="button" value="upload" class="bg-bronze p-2 px-6"></div>
             </div>
         </form>
     </body>

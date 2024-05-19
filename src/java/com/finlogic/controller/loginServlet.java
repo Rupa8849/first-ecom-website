@@ -49,6 +49,7 @@ public class loginServlet extends HttpServlet {
 
                 if (rs.next()) {
                     session.setAttribute("userExists", "user");
+                    session.setAttribute("userid", rs.getInt("user_id"));
                     session.setAttribute("name", rs.getString("first_name"));
                     out.print(session.getAttribute("name"));
 
@@ -66,30 +67,33 @@ public class loginServlet extends HttpServlet {
 
                 String fname = request.getParameter("fname");
                 String lname = request.getParameter("lname");
-                String username = request.getParameter("username");
                 String uemail = request.getParameter("email");
                 String mobile = request.getParameter("mobile");
-                String address = request.getParameter("address");
-                String state = request.getParameter("state");
-                String city = request.getParameter("city");
-                String pincode = request.getParameter("pincode");
 
-                int result = loginService.insertProfileData(fname, lname, username, uemail, mobile, address, state, city, pincode);
+                int result = loginService.insertProfileData(fname, lname, uemail, mobile);
 
-                session.setAttribute("userLoggedin", "1");
-                session.setAttribute("userEmail", uemail);
-                session.setAttribute("fname", fname);
+                if (result > 0) {
+                    ResultSet rs = loginService.viewUserData(uemail);
+                    if (rs.next()) {
+                        session.setAttribute("userid", rs.getInt("user_id"));
+                        session.setAttribute("userLoggedin", "1");
+                        session.setAttribute("name", fname);
 
-                request.setAttribute("result", result);
-                request.setAttribute("process", process);
+                        request.setAttribute("result", result);
+                        request.setAttribute("process", process);
+
+                    }
+                }
 
                 RequestDispatcher view = request.getRequestDispatcher("loginAjax.jsp");
                 view.forward(request, response);
+
             } else if (process.equals("getUserData")) {
                 String email = request.getParameter("email");
 
                 out.print(email);
-            }
+
+            } 
         } catch (SQLException | ClassNotFoundException ex) {
             out.print("exception : " + ex.getMessage());
         } finally {

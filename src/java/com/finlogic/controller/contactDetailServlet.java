@@ -6,6 +6,7 @@ package com.finlogic.controller;
 
 import com.finlogic.service.contactDetailService;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -48,18 +50,29 @@ public class contactDetailServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 String subject = request.getParameter("subject");
                 String message = request.getParameter("message");
-                
+
 //                out.print(fname + " " + lname + " " + email + " " + subject + " " + message);
                 Date currentDate = new Date();
                 Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
 
-                int result = contactDetailService.insertContactusData(fname, lname, email, subject, message, new java.sql.Date(currentTimestamp.getTime()));
+                int result = contactDetailService.insertContactusData(fname, lname, email, subject, message, currentTimestamp);
 
                 request.setAttribute("result", result);
                 request.setAttribute("process", process);
 
                 RequestDispatcher view = request.getRequestDispatcher("adminEvents.jsp");
                 view.forward(request, response);
+                
+            } else if (process.equals("demo")) {
+                String fname = request.getParameter("fname");
+                String lname = request.getParameter("lname");
+
+//                Part filePart = request.getPart("pimage");
+//                InputStream inputStream = filePart.getInputStream();
+                out.print("fname = " + fname);
+                out.print("lname = " + lname);
+//                out.print(process);
+
             }
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println("Exception : " + ex.getMessage());
@@ -106,3 +119,4 @@ public class contactDetailServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+//

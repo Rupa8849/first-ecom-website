@@ -79,9 +79,9 @@ public class displayImageRepository {
     public static void main(String[] args) throws ClassNotFoundException {
         displayImageRepository displayImageRepository1 = new displayImageRepository();
         try {
-            ResultSet rs = displayImageRepository1.displayFacemakeups();
+            ResultSet rs = displayImageRepository1.displayLipstics();
             while (rs.next()) {
-                System.out.println("name = " + rs.getString("product_name"));
+                System.out.println("name = " + rs.getInt("product_id"));
             }
         } catch (SQLException ex) {
             System.out.println("Exception" + ex);

@@ -46,22 +46,17 @@
                                     <button
                                         class="bg-white text-blue-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                                         type="button">
-                                        <i class="fab fa-twitter"></i>
+                                        <a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
                                     </button>
                                     <button
                                         class="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                                         type="button">
-                                        <i class="fab fa-facebook-square"></i>
-                                    </button>
-                                    <button
-                                        class="bg-white text-pink-500 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                                        type="button">
-                                        <i class="fab fa-dribbble"></i>
+                                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-square"></i></a>
                                     </button>
                                     <button
                                         class="bg-white text-gray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
                                         type="button">
-                                        <i class="fab fa-github"></i>
+                                        <a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
                                     </button>
                                 </div>
                             </div>
@@ -89,11 +84,6 @@
                                                href="#">Cancel
                                                 Order</a>
                                         </li>
-                                        <li>
-                                            <a class="text-white hover:text-white font-semibold block pb-2 text-sm"
-                                               href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile">Terms
-                                                & Conditions</a>
-                                        </li>
                                         
                                     </ul>
                                 </div>
@@ -102,7 +92,7 @@
                                     <ul class="list-unstyled">
                                         <li>
                                             <a class="text-white hover:text-white font-semibold block pb-2 text-sm"
-                                               href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile">Accounts</a>
+                                               href="userLogin.jsp">Login</a>
                                         </li>
                                     </ul>
                                 </div>

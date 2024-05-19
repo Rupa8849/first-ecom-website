@@ -16,7 +16,6 @@
         <link href="https://tuk.dev/components/E-commerce/Components/carousels/carousel_2"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
               integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -43,7 +42,7 @@
         </script>
 
     </head>
-    <body class="h-full w-screen overflow-x-hidden">
+    <body class="h-full w-screen overflow-x-hidden" onload="trendingNow(); topBrands(); topDeals()">
         <!--header-->
         <div class="lg:w-screen sm:w-screen flex shadow-lg  md:flex-col sticky top-0 z-40">
             <%@include file="header.jsp" %>
@@ -199,11 +198,11 @@
             </section>
             <!--======================================== carousel section ends ============================================-->
 
-            
+
 
             <!--===================================== grid-items section start======================================================-->
             <!--grid - 1--> 
-            <section class="lg:h-fit w-screen">
+            <section class="lg:h-fit w-screen" >
                 <!--legend--> 
                 <form class="lg:px-60 sm:px-12 md:px-40 mt-12">
                     <fieldset class="border-2 border-black border-x-white border-b-white">
@@ -213,114 +212,12 @@
                     </fieldset>
                 </form>
                 <div
-                    class="w-fit mx-auto grid grid-cols-4 lg:grid-cols-4 gap-4">
-                    <!--col - 1--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>                                    
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 2--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/lotus/lotus_liqlip3.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 3--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/maybelline/maybelline_liqlip4.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 4--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/nykaa/gloss2.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
+                    class="w-fit mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="trendingSection">
 
                 </div>
             </section>
-            
-             <!--======================================== carousel-2 section starts ============================================-->
+
+            <!--======================================== carousel-2 section starts ============================================-->
 
             <section class="w-[90%] p-10 mx-auto">
                 <div id="default-carousel" class="relative w-full mx-auto bg-gray-300" data-carousel="slide">
@@ -426,109 +323,8 @@
                     </fieldset>
                 </form>
                 <div
-                    class="w-fit mx-auto grid grid-cols-4 lg:grid-cols-4 gap-4">
-                    <!--col - 1--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/lakme/lakme_fond4.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 2--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/lotus/lotus_fond1.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 3--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/maybelline/maybelline_fond1.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 4--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/nykaa/fondation4.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
+                    class="w-fit mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="topDealsSection">
+                   
 
                 </div>
             </section>
@@ -540,113 +336,12 @@
                     <fieldset class="border-2 border-black border-x-white border-b-white">
                         <legend
                             class="lg:text-center md:text-center sm:text-center font-bold text-2xl text-bronze p-2 uppercase">
-                            Top rating products</legend>
+                            Top rating Products</legend>
                     </fieldset>
                 </form>
                 <div
-                    class="w-fit mx-auto grid grid-cols-4 lg:grid-cols-4 gap-4">
-                    <!--col - 1--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/lakme/lakme_shadow1.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
+                    class="w-fit mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="topBrandsSection">
 
-                    <!--col - 2--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/hudabeauty/huda_shadow1.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 3--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/maybelline/maybelline_shadow3.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--col - 4--> 
-                    <div class="py-6 h-50 w-72 place-items-center grid">
-                        <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                            <div class="overflow-hidden w-full">
-                                <div>
-                                    <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                </div>
-                                <div class="h-56 w-full p-2">
-                                    <img src="images/biotique/biotique_shadow1.avif" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                </div>
-                            </div>
-                            <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                            <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                <p class="font-bold">₹399</p>
-                                <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                            </div>
-                            <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-
-                            <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                <button
-                                    class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                    to Bag</button>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </section>

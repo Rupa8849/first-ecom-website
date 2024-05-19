@@ -55,19 +55,21 @@
                 response.sendRedirect("adminLogin.jsp");
             }
         %>
-        <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <div class="flex h-screen bg-gray-50 dark:bg-gray-700" :class="{ 'overflow-hidden': isSideMenuOpen }">
             <!-- Desktop sidebar -->
             <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
                 <div class="py-4 text-gray-500 dark:text-gray-400">
 
-                    <p class="text-xl ml-4 text-purple-600">Admin dashboard</p>
-
+                    <div class="text-xl ml-4 text-purple-600 flex space-x-2">
+                        <p>Welcome</p>
+                        <span id="loadAdmin"></span>
+                    </div>
                     <ul class="mt-6">
                         <li class="relative px-6 py-3">
                             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                                   aria-hidden="true"></span>
                             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                               href="index.html">
+                               href="#">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                      stroke="currentColor">
@@ -83,13 +85,10 @@
 
                     <ul onclick="">
                         <!-- products operations-->
-                        <li class="relative px-6 py-3">
-                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" @click="togglePagesMenu" aria-haspopup="true">
+                        <li class="relative px-6 py-2 hover:bg-gray-100  dark:hover:bg-gray-800" @click="togglePagesMenu" aria-haspopup="true">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                 <span class="inline-flex items-center">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
-                                    </path>
-                                    </svg>
+                                    <img src="images/products.png" class="h-5 w-5">
                                     <span class="ml-4">Products</span>
                                 </span>
                                 <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -97,7 +96,7 @@
                                 </svg>
                             </button>
                             <template x-if="isPagesMenuOpen">
-                                <ul x-transition:enter="transition-all ease-in-out duration-300" x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl" x-transition:leave="transition-all ease-in-out duration-300" x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">
+                                <ul x-transition:enter="transition-all ease-in-out duration-300" x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl" x-transition:leave="transition-all ease-in-out duration-300" x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0" class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-white dark:text-gray-400 dark:bg-gray-900" aria-label="submenu">
                                     <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" 
                                         onclick="return viewProducts('viewProducts')">
                                         <a class="w-full">View Products</a>
@@ -123,29 +122,52 @@
 
                                 </ul>
                             </template>
-
-
                         </li>
 
-                    </ul>
-                    <ul>
-                        <div class="px-6 my-6">
-                            <button
-                                onclick="return logoutAdmin()"
-                                class="flex items-center justify-center w-1/3 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                Logout
+                        <!-- orders operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getOrderDetails()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/order2.png" class="h-5 w-5">
+                                    <span class="ml-4">Orders</span>
+                                </span>
                             </button>
-                        </div>                    
+                        </li>
+
+                        <!-- Categories operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getCategoryList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/list.png" class="h-5 w-5">
+                                    <span class="ml-4">Product Categories</span>
+                                </span>
+                            </button>
+                        </li>
+
+                        <!-- Users operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getUserList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/users.png" class="h-6 w-6">
+                                    <span class="ml-4">User list</span>
+                                </span>
+                            </button>
+                        </li>
+
+                        <!-- User inquiries-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getInquiryList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/user-inquiries.png" class="h-5 w-5">
+                                    <span class="ml-4">User inquiries</span>
+                                </span>
+                            </button>
+                        </li>
                     </ul>
-                    <!--                    <div class="px-6 my-6">
-                                            <button
-                                                class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                                                Create account
-                                                <span class="ml-2" aria-hidden="true">+</span>
-                                            </button>
-                                        </div>-->
+
                 </div>
             </aside>
+
             <!-- Mobile sidebar -->
             <!-- Backdrop -->
             <div x-show="isSideMenuOpen" x-transition:enter="transition ease-in-out duration-150"
@@ -170,7 +192,7 @@
                             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                                   aria-hidden="true"></span>
                             <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                               href="index.html">
+                               href="">
                                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                      stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                      stroke="currentColor">
@@ -185,59 +207,6 @@
                     <!-- menu options -->
 
                     <ul onclick="">
-                        <!-- <li class="relative px-6 py-3">
-                            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                               onclick="return viewProducts('viewProducts')">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                </path>
-                                </svg>
-                                <span class="ml-4">view products</span>
-                            </a>
-                        </li>
-                        <li class="relative px-6 py-3">
-                            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                               onclick="return viewProducts('insertProducts')">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                </path>
-                                </svg>
-                                <span class="ml-4">insert products</span>
-                            </a>
-                        </li>
-                        <li class="relative px-6 py-3">
-                            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                               onclick="return viewProducts('editProducts')">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                </path>
-                                </svg>
-                                <span class="ml-4">edit products</span>
-                            </a>
-                        </li>
-                        <li class="relative px-6 py-3">
-                            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                               onclick="return DeleteProducts('deleteProducts')">
-                                <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                     stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-                                     stroke="currentColor">
-                                <path
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                                </path>
-                                </svg>
-                                <span class="ml-4">delete products</span>
-                            </a>
-                        </li> -->
-
                         <!-- products operations-->
                         <li class="relative px-6 py-3">
                             <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" @click="togglePagesMenu" aria-haspopup="true">
@@ -274,6 +243,45 @@
                                     </li>
                                 </ul>
                             </template>
+                        </li>
+                        <!-- orders operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getOrderDetails()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/order2.png" class="h-5 w-5">
+                                    <span class="ml-4">Orders</span>
+                                </span>
+                            </button>
+                        </li>
+
+                        <!-- Categories operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getCategoryList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/list.png" class="h-5 w-5">
+                                    <span class="ml-4">Product Categories</span>
+                                </span>
+                            </button>
+                        </li>
+
+                        <!-- Users operations-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getUserList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/users.png" class="h-6 w-6">
+                                    <span class="ml-4">User list</span>
+                                </span>
+                            </button>
+                        </li>
+
+                        <!-- User inquiries-->
+                        <li class="relative px-6 py-2 hover:bg-gray-100" onclick="return getInquiryList()">
+                            <button class="inline-flex items-center justify-between w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <span class="inline-flex items-center">
+                                    <img src="images/user-inquiries.png" class="h-5 w-5">
+                                    <span class="ml-4">User inquiries</span>
+                                </span>
+                            </button>
                         </li>
                     </ul>
                     <div class="px-6 my-6">
@@ -348,7 +356,7 @@
                                         d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
                                     </path>
                                     </svg>
-                                    <!-- Notification badge -->
+                                    <!--Notification badge--> 
                                     <span aria-hidden="true"
                                           class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"></span>
                                 </button>
@@ -394,7 +402,7 @@
                                     @click="toggleProfileMenu" @keydown.escape="closeProfileMenu"
                                     aria-label="Account" aria-haspopup="true">
                                     <img class="object-cover w-8 h-8 rounded-full"
-                                         src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
+                                         src="images/admin-2.png"
                                          alt="" aria-hidden="true" />
                                 </button>
                                 <template x-if="isProfileMenuOpen">
@@ -403,7 +411,7 @@
                                         @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu"
                                         class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
                                         aria-label="submenu">
-                                        <li class="flex">
+                                        <li class="flex" onclick="adminProfile(<%= session.getAttribute("admin_id")%>)">
                                             <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                                href="#">
                                                 <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
@@ -416,21 +424,21 @@
                                                 <span>Profile</span>
                                             </a>
                                         </li>
-                                        <li class="flex">
-                                            <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                                               href="#">
-                                                <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                     viewBox="0 0 24 24" stroke="currentColor">
-                                                <path
-                                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                                                </path>
-                                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                </svg>
-                                                <span>Settings</span>
-                                            </a>
-                                        </li>
-                                        <li class="flex">
+                                        <!--                                        <li class="flex">
+                                                                                    <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                                                                                       href="#">
+                                                                                        <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
+                                                                                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                                             viewBox="0 0 24 24" stroke="currentColor">
+                                                                                        <path
+                                                                                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                                                                        </path>
+                                                                                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                                        </svg>
+                                                                                        <span>Settings</span>
+                                                                                    </a>
+                                                                                </li>-->
+                                        <li class="flex" onclick="return logoutAdmin()">
                                             <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
                                                href="#">
                                                 <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
@@ -451,213 +459,72 @@
                 </header>
 
                 <!------------------------------main----------------------------------->
-                <main class="h-full overflow-y-auto">
+                <main class="h-full overflow-y-auto" id="main">
                     <div class="container px-6 mx-auto grid">
-                        <div class="my-6 w-full text-black" id="loadMainContent">
+                        <div class="my-6 w-full h-full">
+                            <div class="w-full bg-white dark:bg-gray-800 border h-full flex flex-col items-center">
+                                <div class="h-full text-gray-700 w-full grid lg:grid-cols-3 sm:grid-cols-2 gap-y-2 p-10 place-items-center">
+                                    <div class="p-4 bg-gray-50 border border-purple-400 w-60 flex flex-col items-center space-y-2 rounded">
+                                        <div class="bg-teal-200 rounded-full h-fit p-4">
+                                            <img src="images/products.png" class="h-8 w-8">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p class="text-3xl font-bold">892</p>
+                                            <p class="text-lg">Total Products</p>
+                                        </div>
+                                    </div>
 
-
+                                    <div class="p-4 bg-gray-50 border border-purple-400 w-60 flex flex-col items-center space-y-2 rounded">
+                                        <div class="bg-orange-300 rounded-full h-fit p-4">
+                                            <img src="images/sales.png" class="h-8 w-8">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p class="text-3xl font-bold">₹2395</p>
+                                            <p class="text-lg">Total Sales</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border border-purple-400 w-60 flex flex-col items-center space-y-2 rounded">
+                                        <div class="bg-purple-300 rounded-full h-fit p-4">
+                                            <img src="images/users.png" class="h-8 w-8">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p class="text-3xl font-bold">4</p>
+                                            <p class="text-lg">Registered Users</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border border-purple-400 w-60 flex flex-col items-center space-y-2 rounded">
+                                        <div class="bg-rose-300 rounded-full h-fit p-4">
+                                            <img src="images/distributed.png" class="h-8 w-8">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p class="text-3xl font-bold">18</p>
+                                            <p class="text-lg">Total Categories</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-gray-50 border border-purple-400 w-60 flex flex-col items-center space-y-2 rounded">
+                                        <div class="bg-sky-300 rounded-full h-fit p-4">
+                                            <img src="images/order2.png" class="h-8 w-8">
+                                        </div>
+                                        <div class="flex flex-col items-center">
+                                            <p class="text-3xl font-bold">6</p>
+                                            <p class="text-lg">Total Orders</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!--<input id="" class="bg-black text-white">-->
-
-                        <!--carousel-->
-<!--                        <div class="relative container mx-auto w-full bg-yellow-200 h-fit">
-                            <div class="flex overflow-auto p-4 pb-0 gap-4 h-[100%]" id="slider">
-                                
-                                <div class="flex-none w-fit place-items-center grid">
-                                    <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                                        <div class="overflow-hidden w-full">
-                                            <div>
-                                                <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                            </div>                                    
-                                            <div class="h-56 w-full p-2">
-                                                <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                            </div>
-                                        </div>
-                                        <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                                        <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                            <p class="font-bold">₹399</p>
-                                            <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                                        </div>
-                                        <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                                        <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                            <button
-                                                class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                                to Bag</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-none w-fit place-items-center grid">
-                                    <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                                        <div class="overflow-hidden w-full">
-                                            <div>
-                                                <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                            </div>                                    
-                                            <div class="h-56 w-full p-2">
-                                                <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                            </div>
-                                        </div>
-                                        <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                                        <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                            <p class="font-bold">₹399</p>
-                                            <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                                        </div>
-                                        <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                                        <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                            <button
-                                                class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                                to Bag</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-none w-fit place-items-center grid">
-                                    <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                                        <div class="overflow-hidden w-full">
-                                            <div>
-                                                <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                            </div>                                    
-                                            <div class="h-56 w-full p-2">
-                                                <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                            </div>
-                                        </div>
-                                        <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                                        <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                            <p class="font-bold">₹399</p>
-                                            <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                                        </div>
-                                        <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                                        <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                            <button
-                                                class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                                to Bag</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-none w-fit place-items-center grid">
-                                    <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                                        <div class="overflow-hidden w-full">
-                                            <div>
-                                                <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                            </div>                                    
-                                            <div class="h-56 w-full p-2">
-                                                <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                            </div>
-                                        </div>
-                                        <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                                        <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                            <p class="font-bold">₹399</p>
-                                            <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                                        </div>
-                                        <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                                        <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                            <button
-                                                class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                                to Bag</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-none w-fit place-items-center grid ">
-                                    <div class="border border-2 border-bronze rounded-xl w-full h-fit text-left bg-white ">
-                                        <div class="overflow-hidden w-full">
-                                            <div>
-                                                <h1 class="text-left pl-1 text-xl text-green-600">Best Seller</h1>
-                                            </div>                                    
-                                            <div class="h-56 w-full p-2">
-                                                <img src="images/lakme/lakme_liqlip2.webp" class="w-full hover:scale-105 duration-500 rounded-t-xl mx-auto h-full" />
-                                            </div>
-                                        </div>
-                                        <h1 class="bg-black text-white font-medium pl-2 p-4">Naykaa Cosmetic Glamoreyes</h1>
-                                        <div class="flex gap-2 p-1 pl-2 bg-black text-white">
-                                            <p class="font-bold">₹399</p>
-                                            <p>MRP :<span class="line-through pl-2">₹499</span></p>
-                                        </div>
-                                        <h1 class="bg-black text-yellow-300 pl-2">25% off</h1>
-                                        <div class="h-[10%] bg-black flex justify-center items-center w-full rounded-b-xl pb-4 pt-4">
-                                            <button
-                                                class="border border-2 border-bronze hover:bg-bronze text-white p-2 rounded-full w-3/4">Add
-                                                to Bag</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/biotique/bio_fond1.avif" alt="Image 1" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/hudabeauty/huda_eyeliner2.avif" alt="Image 2" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/lakme/lakme-9to5.avif" alt="Image 3" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/biotique/bio_fond1.avif" alt="Image 1" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/hudabeauty/huda_eyeliner2.avif" alt="Image 2" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-                                                                <div class="flex-none w-fit">
-                                                                    <img src="images/lakme/lakme-9to5.avif" alt="Image 3" class="lg:h-50 lg:w-80 sm:w-[400px] sm:h-[320px] border-2 border-bronze">
-                                                                </div>
-
-                                buttons
-                                <button type="button"
-                                        class="absolute top-0 start-0 z-30 flex items-center justify-center h-full cursor-pointer group focus:outline-none"
-                                        onclick="scrollToLeft()">
-                                    <span
-                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/20 dark:bg-gray-800/30 group-hover:bg-black/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M5 1 1 5l4 4" />
-                                        </svg>
-                                        <span class="sr-only">Previous</span>
-                                    </span>
-                                </button>
-                                <button type="button"
-                                        class="absolute top-0 end-0 z-30 flex items-center justify-center h-full cursor-pointer group focus:outline-none"
-                                        onclick="scrollToRight()">
-                                    <span
-                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/20 dark:bg-gray-800/30 group-hover:bg-black/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="m1 9 4-4-4-4" />
-                                        </svg>
-                                        <span class="sr-only">Next</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="mt-4">
-
-                            </div>
-                        </div>-->
-
                     </div>
+                    <!--dashboard main content loader-->
+                    <div class="my-6 w-full text-black" id="loadMainContent">
+                    </div>
+                    <div class="my-6 w-full text-black" id="loadCategory">
+                    </div>
+                    <input type="text" id="loadFormdata" hidden>
+
                 </main>
+
             </div>
         </div>
-
-
-                <script>
-                    let scrollAmount = 0;
-                    const slider = document.getElementById('slider');
-        
-                    function scrollToLeft() {
-                        scrollAmount -= 400; // Adjust this value as needed
-                        slider.scrollTo({
-                            top: 0,
-                            left: scrollAmount,
-                            behavior: 'smooth'
-                        });
-                    }
-        
-                    function scrollToRight() {
-                        scrollAmount += 400; // Adjust this value as needed
-                        slider.scrollTo({
-                            top: 0,
-                            left: scrollAmount,
-                            behavior: 'smooth'
-                        });
-                    }
-                </script>
     </body>
 
 </html>

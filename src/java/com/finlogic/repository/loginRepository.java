@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author dell
  */
 public class loginRepository {
-    
+
     String url = "jdbc:mysql://localhost:3306/college_db";
     String user = "root";
     String password = "ruPa2000@";
@@ -44,51 +44,34 @@ public class loginRepository {
 //    }
     public ResultSet checkEmail(String email) throws SQLException, ClassNotFoundException {
         Class.forName(dbDriver);
-        
+
         Connection con = DriverManager.getConnection(url, user, password);
         PreparedStatement stmt = con.prepareStatement("select * from users where email = ? ");
         ResultSet rs = null;
         try {
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            
+
         } catch (SQLException ex) {
             System.out.println("Exception : " + ex.getMessage());
             con.close();
         }
-        
+
         return rs;
     }
-    
-    public int insertProfileData(
-            String fname,
-            String lname,
-            String username,
-            String email,
-            String mobile,
-            String address,
-            String state,
-            String city,
-            String pincode
-    ) throws SQLException, ClassNotFoundException {
-        
+
+    public int insertProfileData(String fname,String lname, String email,String mobile) throws SQLException, ClassNotFoundException {
+
         Class.forName(dbDriver);
-        
+
         Connection con = DriverManager.getConnection(url, user, password);
         PreparedStatement stmt = con.prepareStatement("insert into users "
-                + "(first_name, last_name, username, email, mobile_no, "
-                + "address, state, city, pincode) values"
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?);");
-        
+                + "(first_name, last_name, email, mobile_no) values(?, ?, ?, ?)");
+
         stmt.setString(1, fname);
         stmt.setString(2, lname);
-        stmt.setString(3, username);
-        stmt.setString(4, email);
-        stmt.setString(5, mobile);
-        stmt.setString(6, address);
-        stmt.setString(7, state);
-        stmt.setString(8, city);
-        stmt.setString(9, pincode);
+        stmt.setString(3, email);
+        stmt.setString(4, mobile);
         
         int status = 0;
         try {
@@ -99,25 +82,27 @@ public class loginRepository {
         }
         return status;
     }
-    
+
     public ResultSet viewUserData(String email) throws SQLException, ClassNotFoundException {
         Class.forName(dbDriver);
-        
+
         Connection con = DriverManager.getConnection(url, user, password);
         PreparedStatement stmt = con.prepareStatement("select * from users where email = ?");
-        
+
         stmt.setString(1, email);
-        
+
         ResultSet rs = stmt.executeQuery();
         return rs;
     }
-    
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        loginRepository loginRepository1 = new loginRepository();
-        ResultSet rs = loginRepository1.checkEmail("rupachauhan8849@gmail.com");
-//        System.out.println(rs);
-        while (rs.next()) {
-            System.out.println("Name = " + rs.getString("first_name"));
-        }
-    }
+
+   
+//    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//        loginRepository loginRepository1 = new loginRepository();
+//        ResultSet rs = loginRepository1.showSuggestion("rit");
+////        System.out.println(rs);
+//        while (rs.next()) {
+//            System.out.println("user Name = " + rs.getString("username"));
+//
+//        }
+//    }
 }
